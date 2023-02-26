@@ -1,0 +1,57 @@
+<%= notice %>
+
+<div class="container px-5 px-sm-0">
+    <div class="row">
+
+        <div class="col-md-3">
+            <!--プロフィール-->
+            <h1>User info</h1>
+                <%= image_tag @books.user.get_profile_image(100,100) %>
+                <table class="table">
+                    <tr>
+                        <th>name</th>
+                        <td><%= @books.user.name %></td>
+                    </tr>
+                    <tr>
+                        <th>introduction</th>
+                        <td><%= @books.user.introduction %></td>
+                    </tr>
+                </table>
+
+            <!--部分テンプレート-->
+            <%= render 'list', book: @book, user: @books.user %>
+        </div>
+
+        <div class="col-md-8 offset-md-1">
+        <h2>Book detail</h2>
+
+        <table class="table">
+            <tr>
+                <td>
+                    <p><%= image_tag @books.user.get_profile_image(100,100) %></p>
+                    <%= link_to user_path(@books.user.id) do %>
+                    <%= @books.user.name %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to book_path(@books.id) do %>
+                    <%= @books.title %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= @books.body %>
+                </td>
+                <td>
+                    <% if @books.user.id == current_user.id %>
+                        <%= link_to "Edit", edit_book_path(@books.id), class: 'btn btn-success' %>
+                </td>
+                <td>
+                        <%= link_to "Destroy", book_path(@books), method: :delete, class: "btn btn-danger" %>
+                    <% end %>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    </div>
+</div>
